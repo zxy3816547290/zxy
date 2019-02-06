@@ -1,0 +1,28 @@
+#include<vector>
+#define N 10
+using namespace std;
+struct Edge{
+	int nextnode;
+	int cost;
+};
+vector<Edge>edge[N];
+void main()
+{
+	int i;
+	for(i=0;i<N;i++)
+	{
+		edge[i].clear();
+	}
+	Edge tmp;
+	tmp.cost=38;
+	tmp.nextnode=3;
+	edge[1].push_back(tmp);
+	for(i=0;i<edge[1].size();i++)
+	{
+		int cost=edge[1][i].cost;
+		int nextnode=edge[1][i].nextnode;
+		printf("%d",cost);
+		printf("%d",nextnode);
+	}
+	edge[1].erase(edge[1].begin()+i,edge[1].begin()+i+1);
+}
