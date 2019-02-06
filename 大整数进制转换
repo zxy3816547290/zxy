@@ -1,0 +1,139 @@
+#include<stdio.h>
+#include<string.h>
+struct biginteger{
+	int digit[1000];
+	int size;
+	void init()
+	{
+		int i;
+		for(i=0;i<1000;i++)
+		{
+			digit[i]=0;
+		}
+		size=0;
+	}
+	void output()
+	{
+		int i;
+		for(i=size-1;i>=0;i--)
+		{
+			if(i!=size-1) printf("%4d",digit[i]);
+			else printf("%d",digit[i]);
+		}
+	}
+	void set(int x)
+	{
+		init();
+		do
+		{
+			digit[size++]=x%10000;
+			x/=10000;
+		}while(x!=0);
+	}
+	biginteger operator +(const biginteger &a) const{
+		biginteger r;
+		r.init();
+		int i,tmp=0,carry=0;
+		for(i=0;i<a.size||i<size;i++)
+		{
+			tmp=digit[i]+a.digit[i]+carry;
+			carry=tmp/10000;
+			tmp%=10000;
+			r.digit[r.size++]=tmp;
+		}
+		if(carry!=0)
+		{
+			r.digit[r.size++]=carry;
+		}
+		return r;
+	}
+	biginteger operator *(int x) const{
+		biginteger r;
+		r.init();
+		int i,tmp=0,carry=0;
+		for(i=0;i<size;i++)
+		{
+			tmp=digit[i]*x+carry;
+			carry=tmp/10000;
+			tmp%=10000;
+			r.digit[r.size++]=tmp;
+		}
+		if(carry!=0)
+		{
+			r.digit[r.size++]=carry;
+		}
+		return r;
+	}
+	biginteger operator /(int x) const{
+		biginteger r;
+		r.init();
+		int i,p=0,t=0,remain=0;
+		for(i=size-1;i>=0;i--)
+		{
+			p=(remain*10000+digit[i])/x;
+			t=(remain*10000+digit[i])%x;
+			r.digit[i]=p;
+			remain=t;
+		}
+		r.size=0;
+		for(i=0;i<1000;i++)
+		{
+			if(digit[i]!=0)
+			{
+				r.size=i;
+			}
+		}
+		r.size++;
+		return r;
+	}
+	int operator %(int x) const{
+		int i,remain=0,p=0,t=0;
+		for(i=size-1;i>=0;i--)
+		{
+			p=(remain*10000+digit[i])/x;
+			t=(remain*10000+digit[i])%x;
+			remain=t;
+		}
+		return remain;
+	}
+}a,b,c;
+char str[10000];
+char str1[10000];
+void main()
+{
+	int m,n;
+	while(scanf("%d%d",&m,&n)!=EOF)
+	{
+		scanf("%s",str);
+		a.set(0);
+		b.set(1);
+		int l=strlen(str);
+		int i;
+		for(i=l-1;i>=0;i--)
+		{
+			int t=0;
+			if(str[i]>='0'&&str[i]<='9')
+			{
+				t=str[i]-'0';
+			}
+			else if(str[i]>='A'&&str[i]<='Z') t=str[i]-'A'+10;
+			else if(str[i]>='a'&&str[i]<='z') t=str[i]-'a'+10;
+			a=a+b*t;
+			b=b*m;
+		}
+		int size=0;
+		do
+		{
+			int t=0;
+			t=a%n;
+			if(t>=10) str1[size++]=t-10+'a';
+			else str1[size++]=t+'0';
+			a=a/n;
+		}while(a.digit[0]!=0);
+		for(i=size-1;i>=0;i--)
+		{
+			printf("%c",str1[i]);
+		}
+		printf("\n");
+	}
+}
