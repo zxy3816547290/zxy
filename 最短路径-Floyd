@@ -1,0 +1,39 @@
+#include<stdio.h>
+int ans[100][100];
+void main()
+{
+	int n,m,i,j;
+	while(scanf("%d%d",&n,&m)!=EOF&&n<=100&&m<=10000)
+	{
+		if(m==0&&n==0) break;
+		for(i=1;i<=n;i++)
+		{
+			for(j=1;j<=n;j++)
+			{
+				ans[i][j]=0;
+			}
+		}
+		while(m--!=0)
+		{
+			int a,b,c;
+			scanf("%d%d%d",&a,&b,&c);
+			ans[a][b]=c;
+			ans[b][a]=c;
+		}
+		int k;
+		for(k=1;k<=n;k++)
+		{
+			for(i=1;i<=n;i++)
+			{
+				for(j=1;j<=n;j++)
+				{
+					if(ans[i][j]==0||ans[i][k]+ans[k][j]<ans[i][j])
+					{
+						ans[i][j]=ans[i][k]+ans[k][j];
+					}
+				}
+			}
+		}
+		printf("%d",ans[1][n]);
+	}
+}
