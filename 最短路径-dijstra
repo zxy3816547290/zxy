@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<vector>
+using namespace std;
+struct Edge{
+	int next;
+	int c;
+};
+vector<Edge>e[1000];
+bool mark[1000];
+int dis[1000];
+void main()
+{
+	int m,n,j;
+	while(scanf("%d%d",&n,&m)!=EOF&&n<=100&&m<=10000)
+	{
+		if(m==0&&n==0) break;
+		int i;
+		for(i=1;i<=n;i++) e[i].clear();
+		while(m--!=0)
+		{
+			int a,b,c;
+			scanf("%d%d%d",&a,&b,&c);
+			Edge tmp;
+			tmp.c=c;
+			tmp.next=b;
+			e[a].push_back(tmp);
+			tmp.next=a;
+			e[b].push_back(tmp);
+		}
+		for(i=1;i<=n;i++)
+		{
+			dis[i]=0;
+			mark[i]=false;
+		}
+		int newp=1;
+		for(i=1;i<n;i++)
+		{
+			for(j=0;j<e[newp].size();j++)
+			{
+				int t=e[newp][j].c;
+				int s=e[newp][j].next;
+				if(mark[s]==true) continue;
+				if(dis[s]==0||dis[s]>dis[newp]+t)
+				{
+					dis[s]=dis[newp]+t;
+				}
+			}
+			int min=100000;
+			for(j=1;j<=n;j++)
+			{
+				if(mark[j]==true) continue;
+				if(dis[j]==0) continue;
+				if(dis[j]<min)
+				{
+					min=dis[j];
+					newp=j;
+				}
+			}
+			mark[newp]=true;
+		}
+		printf("%d",dis[n]);
+	}
+}
