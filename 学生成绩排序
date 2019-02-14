@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<algorithm>
+using namespace std;
+struct student{
+	char name[100];
+	int age;
+	int score;
+	bool operator <(const student &a) const{
+		if(a.score!=score) return score<a.score;
+		int t=strcmp(name,a.name);
+		if(t!=0)  return t<0;
+		else return age<a.age;
+	}
+}buf[1000];
+void main()
+{
+	int n,i;
+	while(scanf("%d",&n)!=EOF)
+	{
+		for(i=1;i<=n;i++)
+		{
+			scanf("%s%d%d",buf[i].name,&buf[i].age,&buf[i].score);
+		}
+		sort(buf+1,buf+n+1);
+		for(i=1;i<=n;i++)
+		{
+			printf("%s%4d%4d\n",buf[i].name,buf[i].age,buf[i].score);
+		}
+	}
+	system("pause");
+}
