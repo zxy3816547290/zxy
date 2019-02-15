@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<string.h>
+#define isyear(x) x%400==0||x%4==0&&x%100!=0?1:0
+int days[13][2]={
+	0,0,
+	31,31,
+	28,29,
+	31,31,
+	30,30,
+	31,31,
+	30,30,
+	31,31,
+	31,31,
+	30,30,
+	31,31,
+	30,30,
+	31,31
+};
+struct data{
+	int year;
+	int month;
+	int day;
+	void nextday()
+	{
+		day++;
+		if(day>days[month][isyear(year)])
+		{
+			day=1;
+			month++;
+			if(month>12)
+			{
+				year++;
+				month=1;
+			}
+		}
+	}
+};
+int time[5000][13][32];
+char month[13][20]={
+	" ",
+	"January",
+	"Febrary",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December"
+};
+char weekday[7][20]={
+	"Sunday",
+	"Monday",
+	"Tuesday",
+	"Wednesday",
+	"Thursday",
+	"Friday",
+	"Saturday"
+};
+void main()
+{
+	data tmp;
+	tmp.year=0;
+	tmp.month=1;
+	tmp.day=1;
+	int ans=0;
+	while(tmp.year<5000)
+	{
+		time[tmp.year][tmp.month][tmp.day]=ans++;
+		tmp.nextday();
+	}
+	int y1,d1;
+	char m1[60];
+	int temp;
+	int i;
+	while(scanf("%d%s%d",&d1,m1,&y1)!=EOF)
+	{
+		for(i=0;i<13;i++)
+		{
+			if(strcmp(m1,month[i])==0)
+			{
+				temp=i;
+				break;
+			}
+		}
+		int t=time[y1][temp][d1]-time[0][1][1]+1;
+		puts(weekday[t%7]);
+	}
+}
