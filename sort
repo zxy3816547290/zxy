@@ -1,0 +1,34 @@
+#include<stdio.h>
+#define big 500000
+int hash[1000001];
+int temp[1000001];
+void main()
+{
+	int n,m,i;
+	while(scanf("%d%d",&n,&m)!=EOF)
+	{
+    	for(i=0;i<n;i++)
+	    {
+	    	int tmp;
+	    	scanf("%d",&tmp);
+	    	hash[tmp+big]++;
+    	}
+	   int tem=0;
+	   for(i=1000001;i>=0;i--)
+	   {
+	    	if(hash[i]!=0)
+	    	{
+	     		temp[tem]=i-big;
+				tem++;
+	    	}
+	    	if(tem==m)
+	    	{
+	     		break;
+	    	}
+	   }
+    	for(i=0;i<m;i++)
+    	{
+	    	printf("%4d",temp[i]);
+    	}
+    }
+}
