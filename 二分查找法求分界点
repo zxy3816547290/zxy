@@ -1,0 +1,38 @@
+#include<stdio.h>
+#include<algorithm>
+#include<stdlib.h>
+using namespace std;
+int number[100];
+bool cmp(int a,int b)
+{
+	return a<b;
+}
+void main()
+{
+	int n,i;
+	while(scanf("%d",&n)!=EOF)
+	{
+		for(i=0;i<n;i++)
+		{
+			scanf("%d",&number[i]);
+		}
+		sort(number,number+n,cmp);
+		int target;
+		scanf("%d",&target);
+		int pre=0,next=n-1;
+		int mid;
+		while(pre<next)
+		{
+			mid=(pre+next)/2;
+			if(number[mid]<=target)
+			{
+				pre=mid+1;
+			}
+			else
+			{
+				next=mid-1;
+			}
+		}
+		printf("%d",next);
+	}
+}
