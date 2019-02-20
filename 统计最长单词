@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void main()
+{
+	char sentence[256];
+	scanf("%s",sentence);
+	int l=0,i,count=0,max=0;
+	l=strlen(sentence);
+	for(i=0;i<=l;i++)
+	{
+		if(sentence[i]==' '||sentence[i]=='\0')
+		{
+			max=max>count?max:count;
+			count=0;
+			continue;
+		}
+		count++;
+	}
+	printf("%d",max);
+	system("pause");
+}
