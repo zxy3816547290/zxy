@@ -1,0 +1,26 @@
+#include<stdio.h>
+void main()
+{
+	int i,tmp=0,tmp1,j,ans=0;
+	char sentence[256];
+	char p[200];
+	while(scanf("%s",sentence)!=EOF)
+	{
+		puts(sentence);
+		for(i=0;sentence[i];i++)
+		{
+			if(sentence[i]==' ')
+			{
+				tmp1=i;
+				for(j=tmp;j<tmp1;j++)
+				{
+					p[ans++]=sentence[j];
+				}
+				puts(p);
+				p[0]='\0';
+				tmp=tmp1+1;
+				ans=0;
+			}
+		}
+	}
+}
