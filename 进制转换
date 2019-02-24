@@ -5,6 +5,7 @@ void main()
 	int m,a,b,c;
 	while(scanf("%d%d%d",&m,&a,&b)!=EOF)
 	{
+		if(m==0) break;
 		int i=0;
 		c=a+b;
 		while(c>0)
