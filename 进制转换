@@ -1,0 +1,22 @@
+#include<stdio.h>
+int digit[100];
+void main()
+{
+	int m,a,b,c;
+	while(scanf("%d%d%d",&m,&a,&b)!=EOF)
+	{
+		int i=0;
+		c=a+b;
+		while(c>0)
+		{
+			digit[i++]=c%m;
+			c/=m;
+		}
+		int ans;
+		for(ans=i-1;ans>=0;ans--)
+		{
+			printf("%d",digit[ans]);
+		}
+		printf("\n");
+	}
+}
