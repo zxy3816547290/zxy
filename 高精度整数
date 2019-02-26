@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<string.h>
+struct biginteger{
+	int digit[1000];
+	int size;
+	void init()
+	{
+		int i;
+		for(i=0;i<1000;i++) digit[i]=0;
+		size=0;
+	}
+	void set(char str[])
+	{
+		init();
+		int i,c=1,t=0,j=0;
+		int l=strlen(str);
+		for(i=l-1;i>=0;i--)
+		{
+			t+=(str[i]-'0')*c;
+			c*=10;
+			j++;
+			if(j==4||i==0)
+			{
+				digit[size++]=t;
+				t=0;
+				c=1;
+				j=0;
+			}
+		}
+	}
+	void output()
+	{
+		int i;
+		for(i=size-1;i>=0;i--)
+		{
+			if(i!=size-1) printf("%4d",digit[i]);
+			else printf("%d",digit[i]);
+		}
+	}
+	biginteger operator +(const biginteger &a) const{
+		int i=0,t=0;
+		biginteger p;
+		p.init();
+		while(digit[i]>0||a.digit[i]>0)
+		{
+			p.digit[i]=(digit[i]+a.digit[i]+t)%10000;
+		    t=(digit[i]+a.digit[i])/10000;
+			i++;
+		}
+		if(t!=0) p.digit[i++]=t;
+		p.size=i;
+		return p;
+	}
+}a,b,c;
+void main()
+{
+	char str1[1000],str2[1000];
+	while(scanf("%s%s",str1,str2)!=EOF)
+	{
+		a.set(str1);
+		b.set(str2);
+		c=a+b;
+		c.output();
+	}
+}
