@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+	char s[200];
+	while(gets(s))
+	{
+		int i,j;
+		int c=strlen(s);
+		for(i=0;i<c;i++)
+		{
+			if(s[i]==' ')
+			{
+				for(j=i;s[j+1];j++)
+				{
+					s[j]=s[j+1];
+				}
+				c--;
+			}
+		}
+		for(i=0;i<c;i++)
+		{
+			putchar(s[i]);
+		}
+	}
+}
