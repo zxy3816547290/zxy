@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<vector>
+using namespace std;
+struct e{
+	int nextnode;
+	int c;
+};
+vector<e>E[100];
+bool mark[100];
+int dis[100];
+void main()
+{
+	int n,m;
+	while(scanf("%d%d",&n,&m)!=EOF)
+	{
+		if(m==0&&n==0) break;
+		int i,j;
+		for(i=1;i<=n;i++) E[i].clear();
+		while(m--)
+		{
+			int a,b,c;
+			scanf("%d%d%d",&a,&b,&c);
+			e tmp;
+			tmp.c=c;
+			tmp.nextnode=a;
+			E[b].push_back(tmp);
+			tmp.nextnode=b;
+			E[a].push_back(tmp);
+		}
+		for(i=1;i<=n;i++)
+		{
+			dis[i]=-1;
+			mark[i]=false;
+		}
+		dis[1]=0;
+		mark[1]=true;
+		int newp=1;
+		for(i=1;i<n;i++)
+		{
+			for(j=0;j<E[newp].size();j++)
+			{
+				int t=E[newp][j].nextnode;
+				int c=E[newp][j].c;
+				if(mark[t]==true) continue;
+				if(dis[t]==-1||dis[t]>dis[newp]+c)
+				{
+					dis[t]=dis[newp]+c;
+				}
+			}
+			int min=10000000;
+			for(j=1;j<=n;j++)
+			{
+				if(mark[j]==true) continue;
+				if(dis[j]==-1) continue;
+				if(dis[j]<min)
+				{
+					min=dis[j];
+					newp=j;
+				}
+			}
+			mark[newp]=true;
+		}
+		printf("%d",dis[n]);
+	}
+}
