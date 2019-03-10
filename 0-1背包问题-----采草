@@ -1,0 +1,37 @@
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+struct drug{
+	int time;
+	int value;
+	double tv;
+};
+bool cmp(drug a,drug b)
+{
+	return a.tv>b.tv;
+}
+void main()
+{
+	int t,m,i;
+	drug a[101];
+	while(scanf("%d%d",&t,&m)!=EOF)
+	{
+		for(i=0;i<m;i++)
+		{
+			scanf("%d%d",&a[i].time,&a[i].value);
+			a[i].tv=a[i].value*1.0/a[i].time;
+		}
+		sort(a,a+m,cmp);
+		double v=0;
+		for(i=0;i<m;i++)
+		{
+			if(t<a[i].time)
+			{
+				continue;
+			}
+			t-=a[i].time;
+			v+=a[i].value*1.0;
+		}
+		printf("%lf",v);
+	}
+}
