@@ -1,0 +1,18 @@
+#include<stdio.h>
+int m1[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+int m2[13]={0,31,29,31,30,31,30,31,31,30,31,30,31};
+void main()
+{
+	int year,month;
+	while(scanf("%d%d",&year,&month)!=EOF)
+	{
+		if(year%4==0&&year%100!=0||year%400==0)
+		{
+			printf("%d",m2[month]);
+		}
+		else
+		{
+			printf("%d",m1[month]);
+		}
+	}
+}
