@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+void main()
+{
+	char str[100];
+	scanf("%s",str);
+	int i;
+	int l=strlen(str);
+	int temp,c=1,count=0;
+	for(i=l-1;i>=0;i--)
+	{
+		if(str[i]>='A'&&str[i]<='Z')
+		{
+			temp=str[i]-'A'+10;
+		}
+		else if(str[i]>='a'&&str[i]<='z')
+		{
+			temp=str[i]-'a'+10;
+		}
+		else if(str[i]>='0'&&str[i]<='9')
+		{
+			temp=str[i]-'0';
+		}
+		count+=c*temp;
+		c*=16;
+	}
+	printf("%d",count);
+	system("pause");
+}
