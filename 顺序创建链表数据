@@ -1,0 +1,36 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	node *next;
+};
+node *create()
+{
+	node *t;
+	int n;
+	t=(node*)malloc(sizeof(node));
+	t->next=NULL;
+	node *head=t;
+	node *rear=t;
+	while(scanf("%d",&n)!=EOF&&n!=0)
+	{
+		node *p;
+		p=(node*)malloc(sizeof(node));
+		p->data=n;
+		rear->next=p;
+		rear=p;
+	}
+	rear->next=NULL;
+	return head;
+}
+void main()
+{
+	node *t=create();
+	node *p=t->next;
+	while(p)
+	{
+		printf("%4d",p->data);
+		p=p->next;
+	}
+	system("pause");
+}
