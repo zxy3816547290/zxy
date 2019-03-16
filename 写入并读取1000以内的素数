@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int prime[1000];
+int ans=2;
+void init()
+{
+	prime[0]=2;
+	prime[1]=3;
+	int i,j;
+	bool success=true;
+	for(i=4;i<=1000;i++)
+	{
+		for(j=2;j<i;j++)
+		{
+			if(i%j==0)
+			{
+				success=false;
+				break;
+			}
+		}
+		if(success==true)
+		{
+			prime[ans++]=i;
+		}
+		success=true;
+	}
+}
+void main()
+{
+	init();
+	int count=0;
+	FILE *fp;
+	FILE *fp1;
+	if((fp=fopen("a.txt","w"))==NULL)
+	{
+		printf("cannot open the file!");
+		return;
+	}
+	int i;
+	for(i=0;i<ans;i++)
+	{
+		fprintf(fp,"%4d",prime[i]);
+	}
+	fclose(fp);
+	fp1=fopen("a.txt","r");
+	if(fp1==NULL)
+	{
+		printf("cannot open the file!");
+		return;
+	}
+	while(!feof(fp1))
+	{
+		fscanf(fp,"%d",&count);
+		printf("%4d",count);
+	}
+	system("pause");
+}
