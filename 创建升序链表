@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int elem;
+	node *next;
+};
+node *create()
+{
+	node *t;
+	t=(node*)malloc(sizeof(node));
+	t->next=NULL;
+	node *head,*rear;
+	head=rear=t;
+	int n;
+	while(scanf("%d",&n)!=EOF&&n!=0)
+	{
+		node *temp;
+		temp=(node*)malloc(sizeof(node));
+		temp->elem=n;
+		rear->next=temp;
+		rear=temp;
+	}
+	rear->next=NULL;
+	return head;
+}
+void nodeinorder(node *t)
+{
+	node *p=t->next;
+	while(p)
+	{
+		node *q;
+		for(q=p->next;q;q=q->next)
+		{
+			if(q->elem<p->elem)
+			{
+				int temp=p->elem;
+				p->elem=q->elem;
+				q->elem=temp;
+			}
+		}
+		p=p->next;
+	}
+}
+void main()
+{
+	node *t=create();
+	nodeinorder(t);
+	node *k=t->next;
+	while(k)
+	{
+		printf("%4d",k->elem);
+		k=k->next;
+	}
+	system("pause");
+}
