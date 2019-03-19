@@ -1,0 +1,58 @@
+#include<stdio.h>
+int main()
+{
+	char str[100];
+	char str1[100];
+	char str2[100];
+	while(gets(str))
+	{
+		int i,j,ans1=0,ans2=0;
+		for(i=0;str[i];i++)
+		{
+			if(str[i]%2==1)
+			{
+				str1[ans1++]=str[i];
+			}
+			else if(str[i]%2==0)
+			{
+				str2[ans2++]=str[i];
+			}
+		}
+		str1[ans1]='\0';
+		str2[ans2]='\0';
+		for(i=0;str1[i];i++)
+		{
+			for(j=i;str1[j];j++)
+			{
+				if(str1[i]<str1[j])
+				{
+					char temp=str1[i];
+					str1[i]=str1[j];
+					str1[j]=temp;
+				}
+			}
+		}
+		for(i=0;str2[i];i++)
+		{
+			for(j=i;str2[j];j++)
+			{
+				if(str2[i]>str2[j])
+				{
+					char temp=str2[i];
+					str2[i]=str2[j];
+					str2[j]=temp;
+				}
+			}
+		}
+		for(i=0;str1[i];i++)
+		{
+			putchar(str1[i]);
+		}
+		printf("\n");
+		for(i=0;str2[i];i++)
+		{
+			putchar(str2[i]);
+		}
+	}
+	return 0;
+}
